@@ -86,4 +86,30 @@ public class MultipartBodyTests
             }
         }
     }
+
+    [Test]
+    public async Task MultipartBufferedTest()
+    {
+        using (var httpClient = new HttpClient())
+        {
+            await using (var stream = new FileStream("E:\\Test_files\\test2.pdf", FileMode.Open, FileAccess.Read,
+                             FileShare.ReadWrite))
+            {
+                using (var streamContent = new StreamContent(stream))
+                {
+                    using (var multipartFormDataContent = new MultipartFormDataContent("Upload test"))
+                    {
+                        multipartFormDataContent.Add(streamContent, "MyTestFile", "testFileName");
+                        using (var message =
+                               await httpClient.PostAsync("https://localhost:7084/BodyMultipart/MultipartBuffered",
+                                   multipartFormDataContent))
+                        {
+                            var readAsStringAsync = await message.Content.ReadAsStringAsync();
+                            TestContext.WriteLine(readAsStringAsync);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

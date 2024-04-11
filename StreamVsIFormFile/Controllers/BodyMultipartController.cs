@@ -42,7 +42,7 @@ public class BodyMultipartController : ControllerBase
         };
         await parser.RunAsync(cancellationToken);
     }
-    
+
     [HttpPost("MultipartMultiple")]
     [DisableFormValueModelBinding]
     public async Task PostMultipartMultiple(CancellationToken cancellationToken)
@@ -68,7 +68,8 @@ public class BodyMultipartController : ControllerBase
         }
     }
 
-    private async Task CopyFromMultipartMultiple(Stream stream, Dictionary<string, Stream> streamsDict, CancellationToken cancellationToken)
+    private async Task CopyFromMultipartMultiple(Stream stream, Dictionary<string, Stream> streamsDict,
+        CancellationToken cancellationToken)
     {
         var parser = new StreamingMultipartFormDataParser(stream, binaryBufferSize: 1024 * 64);
         parser.FileHandler += (name, fileName, type, disposition, buffer, bytes, number, properties) =>
@@ -76,5 +77,42 @@ public class BodyMultipartController : ControllerBase
             streamsDict[fileName].Write(buffer, 0, bytes);
         };
         await parser.RunAsync(cancellationToken);
+    }
+
+    [HttpPost("MultipartBuffered")]
+    [DisableFormValueModelBinding]
+    public async Task PostMultipartBuffered(CancellationToken cancellationToken)
+    {
+        using (var readStream = Request.Body)
+        {
+            await using (var resultFileStream =
+                         new FileStream($"E:\\Test_files\\results\\MultipartBuffered{Path.GetRandomFileName()}",
+                             FileMode.Create))
+            {
+                using (var readFileStream = await GetFileStreamAsync(readStream))
+                {
+                    await readFileStream.CopyToAsync(resultFileStream, cancellationToken);
+                }
+            }
+        }
+    }
+
+    private async Task<Stream> GetFileStreamAsync(Stream inStream)
+    {
+        var parser = await MultipartFormDataParser.ParseAsync(inStream).ConfigureAwait(false);
+
+        if (parser.Files.Count != 1)
+        {
+            return null;
+        }
+
+        var filePart = parser.Files.First();
+
+        if (filePart.FileName!="testFileName")
+        {
+            return null;
+        }
+
+        return filePart.Data;
     }
 }
