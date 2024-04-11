@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamVsIFormFile", "StreamVsIFormFile\StreamVsIFormFile.csproj", "{FF135591-7F1B-47D8-B7D9-02EF3AE5F279}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StreamVsIFormFileTests", "StreamVsIFormFileTests\StreamVsIFormFileTests.csproj", "{BCE754B8-A639-4F2D-A390-35D017AF3380}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF135591-7F1B-47D8-B7D9-02EF3AE5F279}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF135591-7F1B-47D8-B7D9-02EF3AE5F279}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF135591-7F1B-47D8-B7D9-02EF3AE5F279}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF135591-7F1B-47D8-B7D9-02EF3AE5F279}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCE754B8-A639-4F2D-A390-35D017AF3380}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCE754B8-A639-4F2D-A390-35D017AF3380}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCE754B8-A639-4F2D-A390-35D017AF3380}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCE754B8-A639-4F2D-A390-35D017AF3380}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
